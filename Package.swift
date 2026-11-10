@@ -234,7 +234,8 @@ let package = Package(
         // life.
         //
         // The current fork retains that correction and exports the engine dynamically.
-        // Height-channel conversion and FEL reconstruction are disabled.
+        // Enable production spatial conversion only.
+        // Runtime eligibility and profile choice still apply.
         // Progressive segment delivery remains off.
         // Both apps embed the engine framework and its dependency notices.
         //
@@ -246,7 +247,7 @@ let package = Package(
         // bridge; the engine's legacy SMB URL product is not linked.
         // 7.48.0 adds VP9 hardware decoding where available, AV1 Dolby Vision,
         // software-path spatial audio, and bounded MPEG-DASH VOD support.
-        // FFmpegBuild 3.11.1 is owned by the engine.
+        // FFmpegBuild 3.11.1 and LibTrueHD 3.1.x are owned by the engine.
         // New host-controlled Now Playing and background retention remain opt-in.
         // 7.51.0 includes route-selected lossless PCM spatial beds from 7.50.0.
         // The fork retains Plozz's timing, subtitle, diagnostics and linkage fixes.
@@ -260,11 +261,14 @@ let package = Package(
         .package(
             url: "https://github.com/brandomoore/AetherEngine",
             revision: "55430e28df74ba11b36fea367ad22af0d685a68b",
-            traits: []
+            traits: [
+                "TrueHDObjectAudio", "DTSXObjectAudio",
+                "DualLayerDolbyVision",
+            ]
         ),
         // NOTE: FFmpegBuild (FFmpeg n8.1.x media libraries) and LibDovi (Dolby Vision
         // RPU parser) are transitive dependencies — AetherEngine declares and
-        // consumes them. Object-audio conversion traits are intentionally disabled.
+        // consumes them, along with LibTrueHD for TrueHDObjectAudio.
         // The retired hybrid-engine target needed
         // direct FFmpegBuild/LibDovi declarations; current Plozz targets do not
         // consume those products. AetherEngine owns their version alignment.
